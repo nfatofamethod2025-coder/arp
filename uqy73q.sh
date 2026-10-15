@@ -44,4 +44,4 @@ tpm2_createprimary -C e -g md5 -G rsa -c primary.ctx || true
 echo "[+] EvictControl"
 tpm2_evictcontrol -C o -c primary.ctx 0x81010001
 
-echo "[+] Done TPM Spoofed. dsc.gg/immortall"
+echo "[+] Done TPM Spoofed."
