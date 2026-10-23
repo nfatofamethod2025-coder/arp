@@ -56,6 +56,23 @@ if not exist "AMIDEWINx64.exe" (
 echo.
 echo.
 
+REM Generate random motherboard serial numbers (different on every run)
+for /f "delims=" %%A in ('powershell -NoProfile -Command "[guid]::NewGuid().ToString().ToUpper()"') do set "MB_UUID=%%A"
+set "MB_UUID_ND=!MB_UUID:-=!"
+
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_SK=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_CSK=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_PSN=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_PAT=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_SS=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_BS=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_BT=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_BLC=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_CM=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_CV=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_CS=%%A"
+for /f "delims=" %%A in ('powershell -NoProfile -Command "-join (1..16 | ForEach-Object { '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'[(Get-Random -Maximum 36)] })"') do set "MB_CA=%%A"
+
 REM Comprehensive ASUS motherboard spoofing
 AMIDEWINx64.exe /IVN "AMI" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
@@ -63,65 +80,49 @@ AMIDEWINx64.exe /SP "System product name" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
 AMIDEWINx64.exe /SV "System product name" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /SS "Default string" >nul 2>&1
+AMIDEWINx64.exe /SS "!MB_SS!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /SU AUTO >nul 2>&1
+AMIDEWINx64.exe /SU "!MB_UUID_ND!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /SK "To Be Filled By O.E.M" >nul 2>&1
+AMIDEWINx64.exe /SK "!MB_SK!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
 AMIDEWINx64.exe /BM "AsRock" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
 AMIDEWINx64.exe /BP "B560M-C" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /BS "Default string" >nul 2>&1
+AMIDEWINx64.exe /BS "!MB_BS!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /BT "Default String" >nul 2>&1
+AMIDEWINx64.exe /BT "!MB_BT!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /BLC "Default String" >nul 2>&1
+AMIDEWINx64.exe /BLC "!MB_BLC!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /CM "Default String" >nul 2>&1
+AMIDEWINx64.exe /CM "!MB_CM!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /CV "Default String" >nul 2>&1
+AMIDEWINx64.exe /CV "!MB_CV!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /CS "Default string" >nul 2>&1
+AMIDEWINx64.exe /CS "!MB_CS!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /CA "Default String" >nul 2>&1
+AMIDEWINx64.exe /CA "!MB_CA!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /CSK "SKU" >nul 2>&1
+AMIDEWINx64.exe /CSK "!MB_CSK!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /PSN "To Be Filled By O.E.M" >nul 2>&1
+AMIDEWINx64.exe /PSN "!MB_PSN!" >nul 2>&1
 timeout /t 1 /nobreak >nul 2>&1
-AMIDEWINx64.exe /PAT "To Be Filled By O.E.M" >nul 2>&1
+AMIDEWINx64.exe /PAT "!MB_PAT!" >nul 2>&1
 
-REM Volume serial spoofing for all drives
+REM Volume serial spoofing for all drives (random on every run)
 if exist "Volumeid64.exe" (
-    Volumeid64.exe a: A1B2-C3D4 >nul 2>&1
-    Volumeid64.exe b: E5F6-7890 >nul 2>&1
-    Volumeid64.exe c: 1A2B-3C4D >nul 2>&1
-    Volumeid64.exe d: 5E6F-789A >nul 2>&1
-    Volumeid64.exe e: B1C2-D3E4 >nul 2>&1
-    Volumeid64.exe f: F567-890A >nul 2>&1
-    Volumeid64.exe g: 2A3B-4C5D >nul 2>&1
-    Volumeid64.exe h: 6E7F-8901 >nul 2>&1
-    Volumeid64.exe i: C1D2-E3F4 >nul 2>&1
-    Volumeid64.exe j: 5678-9ABC >nul 2>&1
-    Volumeid64.exe k: 3A4B-5C6D >nul 2>&1
-    Volumeid64.exe l: 7E8F-9012 >nul 2>&1
-    Volumeid64.exe m: D1E2-F345 >nul 2>&1
-    Volumeid64.exe n: 6789-ABCD >nul 2>&1
-    Volumeid64.exe o: 4A5B-6C7D >nul 2>&1
-    Volumeid64.exe p: 8E9F-0123 >nul 2>&1
-    Volumeid64.exe q: E1F2-3456 >nul 2>&1
-    Volumeid64.exe r: 789A-BCDE >nul 2>&1
-    Volumeid64.exe s: 5A6B-7C8D >nul 2>&1
-    Volumeid64.exe t: 9E0F-1234 >nul 2>&1
-    Volumeid64.exe u: F123-4567 >nul 2>&1
-    Volumeid64.exe v: 890A-BCDE >nul 2>&1
-    Volumeid64.exe w: 6A7B-8C9D >nul 2>&1
-    Volumeid64.exe x: 0E1F-2345 >nul 2>&1
-    Volumeid64.exe y: 1234-5678 >nul 2>&1
-    Volumeid64.exe z: 9ABC-DEF0 >nul 2>&1
+    for %%D in (a b c d e f g h i j k l m n o p q r s t u v w x y z) do (
+        for /f "delims=" %%S in ('powershell -NoProfile -Command "-join (1..4 | ForEach-Object { '0123456789ABCDEF'[(Get-Random -Maximum 16)] }) + '-' + (-join (1..4 | ForEach-Object { '0123456789ABCDEF'[(Get-Random -Maximum 16)] }))"') do (
+            Volumeid64.exe %%D: %%S >nul 2>&1
+        )
+    )
 )
+
+REM Randomize Windows MachineGuid (UUID) so 3rd segment is not 11F1
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$g=[guid]::NewGuid().ToString(); Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Cryptography' -Name 'MachineGuid' -Value $g" >nul 2>&1
+REM Randomize Hardware Profile GUID too
+powershell -NoProfile -ExecutionPolicy Bypass -Command "$g=[guid]::NewGuid().ToString(); Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\IDConfigDB\Hardware Profiles\0001' -Name 'HwProfileGuid' -Value $g" >nul 2>&1
 
 REM Restart WMI service to apply changes
 net stop winmgmt /y >nul 2>&1
